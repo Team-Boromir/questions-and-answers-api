@@ -1,0 +1,27 @@
+{
+  "name": "questions-and-answers-api",
+  "version": "1.0.0",
+  "description": "questions and answers API for Project Catwalk",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Boromir/questions-and-answers-api.git"
+  },
+  "author": "Yosef Groener",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Boromir/questions-and-answers-api/issues"
+  },
+  "homepage": "https://github.com/Team-Boromir/questions-and-answers-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1",
+    "nodemon": "^2.0.15"
+  }
+}
