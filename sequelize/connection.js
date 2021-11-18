@@ -1,6 +1,9 @@
 const { Sequelize } = require('sequelize');
 
-const db = new Sequelize('postgres://localhost:5432/questionsdb');
+const db = new Sequelize('postgres://localhost:5432/questionsdb',
+{
+  // logging: false
+});
 
 async function testDatabase () {
   try {
