@@ -1,20 +1,20 @@
 const db = require('./connection.js');
 const { Sequelize } = require('sequelize');
-const csv = require('csv-parser');
-const fs = require('fs');
-const results = [];
+// const csv = require('csv-parser');
+// const fs = require('fs');
+// const results = [];
 
-fs.createReadStream('../raw_data/questions.csv')
-  .pipe(csv())
-  .on('data', (data) => {
-    results.push(data);
-  })
-  .on('end', () => {
-    Questions.bulkCreate(results)
-    .catch((error)=> {
-      console.log('error was:', error)
-    })
-  })
+// fs.createReadStream('../raw_data/questions.csv')
+//   .pipe(csv())
+//   .on('data', (data) => {
+//     results.push(data);
+//   })
+//   .on('end', () => {
+//     Questions.bulkCreate(results)
+//     .catch((error)=> {
+//       console.log('error was:', error)
+//     })
+//   })
 
 
 let Questions = db.define('questions', {
