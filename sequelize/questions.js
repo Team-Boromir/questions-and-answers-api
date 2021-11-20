@@ -4,19 +4,6 @@ const { Sequelize } = require('sequelize');
 // const fs = require('fs');
 // const results = [];
 
-// fs.createReadStream('../raw_data/questions.csv')
-//   .pipe(csv())
-//   .on('data', (data) => {
-//     results.push(data);
-//   })
-//   .on('end', () => {
-//     Questions.bulkCreate(results)
-//     .catch((error)=> {
-//       console.log('error was:', error)
-//     })
-//   })
-
-
 let Questions = db.define('questions', {
   id: {
     type: Sequelize.INTEGER,
@@ -52,3 +39,16 @@ let Questions = db.define('questions', {
   }
 });
 
+module.exports = Questions;
+
+// fs.createReadStream('../raw_data/questions.csv')
+//   .pipe(csv())
+//   .on('data', (data) => {
+//     results.push(data);
+//   })
+//   .on('end', () => {
+//     Questions.bulkCreate(results)
+//     .catch((error)=> {
+//       console.log('error was:', error)
+//     })
+//   })

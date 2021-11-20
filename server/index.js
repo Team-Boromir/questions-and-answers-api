@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const db = require('sequelize/connection.js')
+
+// const Questions = require('./sequelize/questions.js')
 
 app.listen(port, () => {
   console.log(`Listening at listening at http://localhost:${port}`)
