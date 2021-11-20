@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const db = require('sequelize/connection.js')
+const db = require('./sequelize/connection.js')
 
 // const Questions = require('./sequelize/questions.js')
 
