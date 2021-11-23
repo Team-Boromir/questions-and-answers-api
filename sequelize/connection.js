@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 
 const db = new Sequelize('postgres://localhost:5432/questionsdb',
 {
-  // logging: false
+  logging: false
 });
 
 async function testDatabase () {
@@ -92,6 +92,27 @@ let Answers = db.define('answers', {
   helpful: {
     type: Sequelize.INTEGER,
   }
+}, {
+  timestamps: false
+});
+
+let Photos = db.define('photos', {
+  id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  answer_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  url: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+}, {
+  timestamps: false
 });
 
 module.exports = {
