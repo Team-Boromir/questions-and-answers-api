@@ -1,5 +1,14 @@
 const {db, Questions, Answers, Photos } = require('../sequelize/connection.js');
 
+// Questions Query
+const getQuestions = async(product_id) => {
+  let questions = await Questions.findAll({
+    attributes: [
+
+    ]
+  })
+}
+
 
 // Answers query
 const getAnswers = async (questionId) => {
@@ -31,12 +40,18 @@ const getAnswers = async (questionId) => {
         photoArray.push(photo.dataValues)
       }
       return photoArray;
-      // console.log('photos', photos)
     }
     output.photos = await getPhotos(current.id);
-    console.log('this', output)
+    results.push(output);
   }
-  return answers;
+  let answerList = {
+    question: questionId,
+    page: 0,
+    count: 5,
+    results: results
+  };
+  console.log('answerList', answerList)
+  return answerList
 }
 
 getAnswers(1)
