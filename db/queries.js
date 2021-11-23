@@ -1,20 +1,49 @@
 const {db, Questions, Answers, Photos } = require('../sequelize/connection.js');
 
-
-// Answers practice query
-const getAnswers = async (questionId) => {
+// Answers query
+const getAnswers = async (questionId, page, count) => {
+  page = page || 1;
+  count = count || 5;
   let answers = await Answers.findAll({
+    limit: count,
+    offset: page * count - count,
     where: {questions_id: questionId}
   })
-  console.log(answers.dataValues)
+  let results = [];
   for (var answer of answers) {
-    console.log(answer.dataValues)
+    let current = answer.dataValues
+    let output = {
+      answer_id: current.id,
+      body: current.body,
+      date: current.date,
+      answerer_name: current.name,
+      helpfulness: current.helpful
+    }
+    let getPhotos = async (answer_id) => {
+      let photos =  await Photos.findAll({
+        attributes: [
+          'id',
+          'url'
+        ],
+        where: {answer_id: answer_id}
+      })
+      let photoArray = [];
+      for (var photo of photos) {
+        photoArray.push(photo.dataValues)
+      }
+      return photoArray;
+    }
+    output.photos = await getPhotos(current.id);
+    results.push(output);
   }
-  return answers;
+  let answerList = {
+    question: questionId,
+    page: page,
+    count: count,
+    results: results
+  };
+  console.log('answerList', answerList)
+  return answerList
 }
 
-// console.log('answers', getAnswers());
-
-getAnswers(4)
-
-// Create a list
+getAnswers(1)
