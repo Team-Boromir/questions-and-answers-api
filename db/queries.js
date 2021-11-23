@@ -1,23 +1,16 @@
 const {db, Questions, Answers, Photos } = require('../sequelize/connection.js');
 
-// Questions Query
-const getQuestions = async(product_id) => {
-  let questions = await Questions.findAll({
-    attributes: [
-
-    ]
-  })
-}
-
-
 // Answers query
-const getAnswers = async (questionId) => {
+const getAnswers = async (questionId, page, count) => {
+  page = page || 1;
+  count = count || 5;
   let answers = await Answers.findAll({
+    limit: count,
+    offset: page * count - count,
     where: {questions_id: questionId}
   })
   let results = [];
   for (var answer of answers) {
-    // console.log(answer.dataValues)
     let current = answer.dataValues
     let output = {
       answer_id: current.id,
@@ -26,7 +19,6 @@ const getAnswers = async (questionId) => {
       answerer_name: current.name,
       helpfulness: current.helpful
     }
-    // console.log('output', output)
     let getPhotos = async (answer_id) => {
       let photos =  await Photos.findAll({
         attributes: [
@@ -46,8 +38,8 @@ const getAnswers = async (questionId) => {
   }
   let answerList = {
     question: questionId,
-    page: 0,
-    count: 5,
+    page: page,
+    count: count,
     results: results
   };
   console.log('answerList', answerList)
@@ -55,5 +47,3 @@ const getAnswers = async (questionId) => {
 }
 
 getAnswers(1)
-
-// Create a list
