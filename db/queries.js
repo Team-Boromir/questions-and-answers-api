@@ -24,7 +24,7 @@ const getQuestions = async(product_id, page, count) => {
     let currentAnswers = await getAnswers(data.question_id);
     for (let answer of currentAnswers.results) {
       data.answers[answer.answer_id] = answer;
-      console.log('answer format:', answer);
+      // console.log('answer format:', answer);
     }
     // console.log('currentAnswers', currentAnswers)
     results.push(question.dataValues);
@@ -33,7 +33,7 @@ const getQuestions = async(product_id, page, count) => {
     product_id: product_id,
     results: results
   }
-  // console.log(questionsList.results)
+  return questionsList;
 }
 
 getQuestions(1)
