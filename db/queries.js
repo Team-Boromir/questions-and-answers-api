@@ -118,5 +118,37 @@ const addAnswer = async (question_id, body, name, email, photos) => {
   })
 }
 
-addAnswer(3518964, 'answer', 'yosef groener',
-'y@y.com')
+// addAnswer(3518964, 'answer', 'yosef groener',
+// 'y@y.com')
+
+const markQuestionHelpful = async (question_id) => {
+  await Questions.increment('helpful', {
+    by: 1,
+    where: {id: question_id}
+  })
+}
+
+
+
+const reportQuestion = async (question_id) => {
+  await Questions.increment('reported', {
+    by: 1,
+    where: {id: question_id}
+  })
+}
+
+
+const markAnswerHelpful = async (answer_id) => {
+  await Answers.increment('helpful', {
+    by: 1,
+    where: {id: answer_id}
+  })
+}
+
+
+const reportAnswer = async (answer_id) => {
+  await Answers.increment('reported', {
+    by: 1,
+    where: {id: answer_id}
+  })
+}
