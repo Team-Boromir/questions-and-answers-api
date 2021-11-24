@@ -33,10 +33,11 @@ const getQuestions = async(product_id, page, count) => {
     product_id: product_id,
     results: results
   }
+  console.log(questionsList)
   return questionsList;
 }
 
-getQuestions(1)
+// getQuestions(9999, 2)
 
 
 // Answers query
@@ -86,3 +87,36 @@ const getAnswers = async (questionId, page, count) => {
 }
 
 // getAnswers(1)
+
+const addQuestion = async (body, name, email, product_id) => {
+  await Questions.create({
+    product_id: product_id,
+    body: body,
+    date: Date.now(),
+    name: name,
+    email: email,
+    reported: 0,
+    helpful: 0
+  })
+  .catch((error) => {
+    console.log('error', error)
+  })
+}
+
+// addQuestion('question', 'yosef groener', 'cat@cats.cat', 9999)
+
+const addAnswer = async (question_id, body, name, email, photos) => {
+  await Answers.create({
+    questions_id: question_id,
+    body: body,
+    date: Date.now(),
+    name: name,
+    email: email,
+    photos: photos,
+    reported: 0,
+    helpful: 0
+  })
+}
+
+addAnswer(3518964, 'answer', 'yosef groener',
+'y@y.com')

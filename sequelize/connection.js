@@ -24,7 +24,6 @@ testDatabase()
 let Questions = db.define('questions', {
   id: {
     type: Sequelize.INTEGER,
-    allowNull: false,
     autoIncrement: true,
     primaryKey: true
   },
@@ -62,7 +61,6 @@ let Questions = db.define('questions', {
 let Answers = db.define('answers', {
   id: {
     type: Sequelize.INTEGER,
-    allowNull: false,
     autoIncrement: true,
     primaryKey: true
   },
