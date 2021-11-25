@@ -51,8 +51,16 @@ app.post('/qa/questions', async (req, res) => {
 })
 
 // Post an answer
-app.post('/qa/questions/:question_id/answers', (req, res) => {
-  res.send('Answer was posted')
+app.post('/qa/questions/:question_id/answers', async (req, res) => {
+  try {
+    let {name, email, body, photos} = req.body;
+    let question_id = req.params.question_id;
+    await addAnswer(question_id, body, name, email, photos)
+    res.send('Answer was created!')
+  } catch (err) {
+    console.log('Error creating answer:', err);
+    res.sendStatus(400);
+  }
 })
 
 // Mark question helpful
