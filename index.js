@@ -41,12 +41,11 @@ app.get('/qa/questions/:question_id/answers', async (req, res) => {
 // Post a question
 app.post('/qa/questions', async (req, res) => {
   try {
-    console.log('req.body', req.body)
-    // let {body, name, email, product_id} = req.params;
-    // await addQuestion(body, name, email, product_id)
+    let {body, name, email, product_id} = req.body;
+    await addQuestion(body, name, email, product_id)
     res.send('Question was created!')
   } catch (err) {
-    console.log(err)
+    console.log('error posting question:', err)
     res.sendStatus(400)
   }
 })
