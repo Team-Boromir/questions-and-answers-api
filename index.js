@@ -20,12 +20,13 @@ app.get('/qa/questions', async (req, res) => {
   let questions = await getQuestions(req.query.product_id, req.query.page, req.query.count);
   console.log(req.query.product_id)
   console.log(questions)
-  res.send('here')
+  res.send(questions)
 })
 
 // Get the answers
-app.get('/qa/questions/:question_id/answers', (req, res) => {
-  res.send('Here are the answers')
+app.get('/qa/questions/:question_id/answers', async (req, res) => {
+  console.log(req.params)
+  res.send(await getAnswers(req.params.question_id, req.params.page, req.params.count))
 })
 
 // Post a question
