@@ -64,21 +64,41 @@ app.post('/qa/questions/:question_id/answers', async (req, res) => {
 })
 
 // Mark question helpful
-app.put('/qa/questions/:question_id/helpful', (req, res) => {
-  res.send('Question marked as helpful')
+app.put('/qa/questions/:question_id/helpful', async (req, res) => {
+  try {
+    await markQuestionHelpful(req.params.question_id)
+    res.send('Question data updated')
+  } catch (err) {
+    res.sendStatus(400)
+  }
 })
 
 // Report Question
-app.put('/qa/questions/:question_id/report', (req, res) => {
-  res.send('Question was reported')
+app.put('/qa/questions/:question_id/report', async (req, res) => {
+  try {
+    await reportQuestion(req.params.question_id)
+    res.send('Question data updated')
+  } catch (err) {
+    res.sendStatus(400)
+  }
 })
 
 // Mark answer helpful
-app.put('/qa/answers/:answer_id/helpful', (req, res) => {
-  res.send('Answer marked as helpful')
+app.put('/qa/answers/:answer_id/helpful', async (req, res) => {
+  try {
+    await markAnswerHelpful(req.params.answer_id)
+    res.send('Answer data updated')
+  } catch (err) {
+    res.sendStatus(400)
+  }
 })
 
 // Report answer
-app.put('/qa/answers/:answer_id/helpful', (req, res) => {
-  res.send('Answer marked as helpful')
+app.put('/qa/answers/:answer_id/helpful', async (req, res) => {
+  try {
+    await reportAnswer(req.params.answer_id)
+    res.send('Answer data updated')
+  } catch (err) {
+    res.sendStatus(400)
+  }
 })
