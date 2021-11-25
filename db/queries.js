@@ -33,7 +33,6 @@ const getQuestions = async(product_id, page, count) => {
     product_id: product_id,
     results: results
   }
-  console.log(questionsList)
   return questionsList;
 }
 
@@ -151,4 +150,15 @@ const reportAnswer = async (answer_id) => {
     by: 1,
     where: {id: answer_id}
   })
+}
+
+module.exports = {
+  getQuestions,
+  getAnswers,
+  addQuestion,
+  addAnswer,
+  markQuestionHelpful,
+  markAnswerHelpful,
+  reportQuestion,
+  reportAnswer
 }

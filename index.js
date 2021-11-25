@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const db = require('./sequelize/connection.js')
+const db = require('./sequelize/connection.js');
+const {getQuestions, getAnswers, addQuestion, addAnswer, markQuestionHelpful,  markAnswerHelpful, reportQuestion, reportAnswer} = require('./db/queries.js');
 
 // const Questions = require('./sequelize/questions.js')
 
@@ -14,8 +15,12 @@ app.get('/', (req, res) => {
 })
 
 // Get the questions
-app.get('/qa/questions', (req, res) => {
-  res.send('Here are the questions')
+app.get('/qa/questions', async (req, res) => {
+  let product_id = req.query.product_id;
+  let questions = await getQuestions(req.query.product_id, req.query.page, req.query.count);
+  console.log(req.query.product_id)
+  console.log(questions)
+  res.send('here')
 })
 
 // Get the answers
