@@ -7,7 +7,7 @@ const getQuestions = async(product_id, page, count) => {
   let results = [];
   let questions = await Questions.findAll({
     offset: page * count - count,
-    limit: 5,
+    limit: count,
     attributes: [
       ['id', 'question_id'],
       ['body', 'question_body'],
@@ -24,9 +24,7 @@ const getQuestions = async(product_id, page, count) => {
     let currentAnswers = await getAnswers(data.question_id);
     for (let answer of currentAnswers.results) {
       data.answers[answer.answer_id] = answer;
-      // console.log('answer format:', answer);
     }
-    // console.log('currentAnswers', currentAnswers)
     results.push(question.dataValues);
   }
   let questionsList = {
@@ -35,8 +33,6 @@ const getQuestions = async(product_id, page, count) => {
   }
   return questionsList;
 }
-
-// getQuestions(9999, 2)
 
 
 // Answers query
@@ -81,11 +77,9 @@ const getAnswers = async (questionId, page, count) => {
     count: count,
     results: results
   };
-  // console.log('answerList', answerList)
   return answerList
 }
 
-// getAnswers(1)
 
 const addQuestion = async (body, name, email, product_id) => {
   await Questions.create({
@@ -102,7 +96,6 @@ const addQuestion = async (body, name, email, product_id) => {
   })
 }
 
-// addQuestion('question', 'yosef groener', 'cat@cats.cat', 9999)
 
 const addAnswer = async (question_id, body, name, email, photos) => {
   await Answers.create({
@@ -117,8 +110,6 @@ const addAnswer = async (question_id, body, name, email, photos) => {
   })
 }
 
-// addAnswer(3518964, 'answer', 'yosef groener',
-// 'y@y.com')
 
 const markQuestionHelpful = async (question_id) => {
   await Questions.increment('helpful', {
