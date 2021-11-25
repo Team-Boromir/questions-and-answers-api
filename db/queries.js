@@ -93,6 +93,7 @@ const addQuestion = async (body, name, email, product_id) => {
   })
   .catch((error) => {
     console.log('error', error)
+    throw error
   })
 }
 
@@ -108,6 +109,10 @@ const addAnswer = async (question_id, body, name, email, photos) => {
     reported: 0,
     helpful: 0
   })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
+  })
 }
 
 
@@ -115,6 +120,10 @@ const markQuestionHelpful = async (question_id) => {
   await Questions.increment('helpful', {
     by: 1,
     where: {id: question_id}
+  })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
   })
 }
 
@@ -125,6 +134,10 @@ const reportQuestion = async (question_id) => {
     by: 1,
     where: {id: question_id}
   })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
+  })
 }
 
 
@@ -133,6 +146,10 @@ const markAnswerHelpful = async (answer_id) => {
     by: 1,
     where: {id: answer_id}
   })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
+  })
 }
 
 
@@ -140,6 +157,10 @@ const reportAnswer = async (answer_id) => {
   await Answers.increment('reported', {
     by: 1,
     where: {id: answer_id}
+  })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
   })
 }
 
