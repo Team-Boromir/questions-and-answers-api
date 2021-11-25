@@ -16,22 +16,24 @@ app.get('/', (req, res) => {
 
 // Get the questions
 app.get('/qa/questions', async (req, res) => {
-  let product_id = req.query.product_id;
-  let questions = await getQuestions(req.query.product_id, req.query.page, req.query.count);
-  console.log(req.query.product_id)
-  console.log(questions)
-  res.send(questions)
+  try {
+    let product_id = req.query.product_id;
+    let questions = await getQuestions(req.query.product_id, req.query.page, req.query.count)
+    res.send(questions)
+  } catch (err) {
+    res.sendStatus(400)
+  }
 })
 
 // Get the answers
 app.get('/qa/questions/:question_id/answers', async (req, res) => {
-  console.log(req.params)
   res.send(await getAnswers(req.params.question_id, req.params.page, req.params.count))
 })
 
 // Post a question
-app.post('/qa/questions', (req, res) => {
-  res.send('Question was posted')
+app.post('/qa/questions', async (req, res) => {
+  let question = await addQuestion(req.body.body, req.body.name, req.body.email, req.body.product_id)
+  res.send()
 })
 
 // Post an answer
