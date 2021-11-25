@@ -3,6 +3,8 @@ const app = express();
 const port = 3000;
 const db = require('./sequelize/connection.js');
 const {getQuestions, getAnswers, addQuestion, addAnswer, markQuestionHelpful,  markAnswerHelpful, reportQuestion, reportAnswer} = require('./db/queries.js');
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 // const Questions = require('./sequelize/questions.js')
 
@@ -27,13 +29,26 @@ app.get('/qa/questions', async (req, res) => {
 
 // Get the answers
 app.get('/qa/questions/:question_id/answers', async (req, res) => {
-  res.send(await getAnswers(req.params.question_id, req.params.page, req.params.count))
+  try {
+    let {question_id, page, count} = req.params;
+    console.log('id', question_id)
+    res.send(await getAnswers(question_id, page, count))
+  } catch (err) {
+    res.sendStatus(400)
+  }
 })
 
 // Post a question
 app.post('/qa/questions', async (req, res) => {
-  let question = await addQuestion(req.body.body, req.body.name, req.body.email, req.body.product_id)
-  res.send()
+  try {
+    console.log('req.body', req.body)
+    // let {body, name, email, product_id} = req.params;
+    // await addQuestion(body, name, email, product_id)
+    res.send('Question was created!')
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(400)
+  }
 })
 
 // Post an answer
