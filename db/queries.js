@@ -7,7 +7,7 @@ const getQuestions = async(product_id, page, count) => {
   let results = [];
   let questions = await Questions.findAll({
     offset: page * count - count,
-    limit: 5,
+    limit: count,
     attributes: [
       ['id', 'question_id'],
       ['body', 'question_body'],
@@ -24,20 +24,15 @@ const getQuestions = async(product_id, page, count) => {
     let currentAnswers = await getAnswers(data.question_id);
     for (let answer of currentAnswers.results) {
       data.answers[answer.answer_id] = answer;
-      // console.log('answer format:', answer);
     }
-    // console.log('currentAnswers', currentAnswers)
     results.push(question.dataValues);
   }
   let questionsList = {
     product_id: product_id,
     results: results
   }
-  console.log(questionsList)
   return questionsList;
 }
-
-// getQuestions(9999, 2)
 
 
 // Answers query
@@ -82,11 +77,9 @@ const getAnswers = async (questionId, page, count) => {
     count: count,
     results: results
   };
-  // console.log('answerList', answerList)
   return answerList
 }
 
-// getAnswers(1)
 
 const addQuestion = async (body, name, email, product_id) => {
   await Questions.create({
@@ -100,10 +93,10 @@ const addQuestion = async (body, name, email, product_id) => {
   })
   .catch((error) => {
     console.log('error', error)
+    throw error
   })
 }
 
-// addQuestion('question', 'yosef groener', 'cat@cats.cat', 9999)
 
 const addAnswer = async (question_id, body, name, email, photos) => {
   await Answers.create({
@@ -116,15 +109,21 @@ const addAnswer = async (question_id, body, name, email, photos) => {
     reported: 0,
     helpful: 0
   })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
+  })
 }
 
-// addAnswer(3518964, 'answer', 'yosef groener',
-// 'y@y.com')
 
 const markQuestionHelpful = async (question_id) => {
   await Questions.increment('helpful', {
     by: 1,
     where: {id: question_id}
+  })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
   })
 }
 
@@ -135,6 +134,10 @@ const reportQuestion = async (question_id) => {
     by: 1,
     where: {id: question_id}
   })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
+  })
 }
 
 
@@ -142,6 +145,10 @@ const markAnswerHelpful = async (answer_id) => {
   await Answers.increment('helpful', {
     by: 1,
     where: {id: answer_id}
+  })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
   })
 }
 
@@ -151,4 +158,19 @@ const reportAnswer = async (answer_id) => {
     by: 1,
     where: {id: answer_id}
   })
+  .catch((error) => {
+    console.log('error', error)
+    throw error
+  })
+}
+
+module.exports = {
+  getQuestions,
+  getAnswers,
+  addQuestion,
+  addAnswer,
+  markQuestionHelpful,
+  markAnswerHelpful,
+  reportQuestion,
+  reportAnswer
 }
