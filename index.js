@@ -12,15 +12,12 @@ app.listen(port, () => {
   console.log(`Listening at listening at http://localhost:${port}`)
 })
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
 
 // Get the questions
 app.get('/qa/questions', async (req, res) => {
   try {
     let product_id = req.query.product_id;
-    let questions = await getQuestions(req.query.product_id, req.query.page, req.query.count)
+    let questions = await getQuestions(parseInt(req.query.product_id), req.query.page, req.query.count)
     res.send(questions)
   } catch (err) {
     res.sendStatus(400)
@@ -50,7 +47,7 @@ app.post('/qa/questions', async (req, res) => {
   }
 })
 
-
+// Post an answer
 app.post('/qa/questions/:question_id/answers', async (req, res) => {
   try {
     let {name, email, body, photos} = req.body;
@@ -68,6 +65,7 @@ app.put('/qa/questions/:question_id/helpful', async (req, res) => {
   try {
     await markQuestionHelpful(req.params.question_id)
     res.send('Question data updated')
+    console.log('marked question helpful')
   } catch (err) {
     res.sendStatus(400)
   }
@@ -78,6 +76,8 @@ app.put('/qa/questions/:question_id/report', async (req, res) => {
   try {
     await reportQuestion(req.params.question_id)
     res.send('Question data updated')
+    console.log('reported question')
+
   } catch (err) {
     res.sendStatus(400)
   }
@@ -86,18 +86,24 @@ app.put('/qa/questions/:question_id/report', async (req, res) => {
 // Mark answer helpful
 app.put('/qa/answers/:answer_id/helpful', async (req, res) => {
   try {
+    console.log('params', req.params)
+    console.log('request', req)
     await markAnswerHelpful(req.params.answer_id)
     res.send('Answer data updated')
+    console.log('marked answer helpful')
+
   } catch (err) {
     res.sendStatus(400)
   }
 })
 
 // Report answer
-app.put('/qa/answers/:answer_id/helpful', async (req, res) => {
+app.put('/qa/answers/:answer_id/report', async (req, res) => {
   try {
     await reportAnswer(req.params.answer_id)
     res.send('Answer data updated')
+    console.log('reported answer')
+
   } catch (err) {
     res.sendStatus(400)
   }
