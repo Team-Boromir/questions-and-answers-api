@@ -6,8 +6,6 @@ const {getQuestions, getAnswers, addQuestion, addAnswer, markQuestionHelpful,  m
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-// const Questions = require('./sequelize/questions.js')
-
 app.listen(port, () => {
   console.log(`Listening at listening at http://localhost:${port}`)
 })
@@ -76,7 +74,6 @@ app.put('/qa/questions/:question_id/report', async (req, res) => {
     await reportQuestion(req.params.question_id)
     res.send('Question data updated')
     console.log('reported question')
-
   } catch (err) {
     res.sendStatus(400)
   }
@@ -85,8 +82,6 @@ app.put('/qa/questions/:question_id/report', async (req, res) => {
 // Mark answer helpful
 app.put('/qa/answers/:answer_id/helpful', async (req, res) => {
   try {
-    console.log('params', req.params)
-    console.log('request', req)
     await markAnswerHelpful(req.params.answer_id)
     res.send('Answer data updated')
     console.log('marked answer helpful')
