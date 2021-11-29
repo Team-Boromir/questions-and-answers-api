@@ -28,7 +28,6 @@ app.get('/qa/questions', async (req, res) => {
 app.get('/qa/questions/:question_id/answers', async (req, res) => {
   try {
     let {question_id, page, count} = req.params;
-    console.log('id', question_id)
     res.send(await getAnswers(question_id, page, count))
   } catch (err) {
     res.sendStatus(400)
