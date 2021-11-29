@@ -15,17 +15,7 @@ export const options = {
 };
 
 export default function () {
-  http.post('http://localhost:3121/qa/questions/', {
-    "product_id": 1,
-    "body": "Testing",
-    "name": "me",
-    "email": "yg@g.com"
-});
-  sleep(1);
-}
-
-export default function () {
-  const url = 'http://localhost:3121/qa/questions/';
+  const url = 'http://localhost:3121/qa/questions/1/answers';
   const params = {
     headers: {
       'Content-Type': 'application/json',
@@ -33,11 +23,12 @@ export default function () {
   };
 
   const data = JSON.stringify({
-    "product_id": 1,
-    "body": "Testing",
+    "photos": "[]",
+    "body": "Load testing",
     "name": "me",
-    "email": "yg@g.com"
-});
+    "email": "yosef@g.com"
+  });
+
   check (http.post(url, data, params), {
     'is status 200': (r) => r.status === 200
   })
