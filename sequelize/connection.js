@@ -6,6 +6,7 @@ const db = new Sequelize(`postgres://postgres:${password}@18.223.209.2/questions
   logging: false
 });
 
+
 async function testDatabase () {
   try {
     await db.authenticate();
