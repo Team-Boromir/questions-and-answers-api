@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3121;
 const db = require('./sequelize/connection.js');
+
 const {getQuestions, getAnswers, addQuestion, addAnswer, markQuestionHelpful,  markAnswerHelpful, reportQuestion, reportAnswer} = require('./db/queries.js');
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());

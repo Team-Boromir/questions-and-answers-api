@@ -1,9 +1,11 @@
 const { Sequelize } = require('sequelize');
+const password = require('../config.js');
 
-const db = new Sequelize('postgres://localhost:5432/questionsdb',
+const db = new Sequelize(`postgres://postgres:${password}@18.223.209.2/questions_db`,
 {
   logging: false
 });
+
 
 async function testDatabase () {
   try {
